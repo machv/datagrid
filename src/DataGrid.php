@@ -1740,10 +1740,12 @@ class DataGrid extends Nette\Application\UI\Control
 				} else {
 					$this->getPresenter()->payload->_datagrid_inline_edit_cancel = $id;
 					$this->getPresenter()->payload->_datagrid_name = $this->getName();
-				}
+				} 
 
 				if ($edit['submit']->isSubmittedBy() && !empty($this->inlineEdit->onCustomRedraw)) {
-					$this->inlineEdit->onCustomRedraw();
+					$this->inlineEdit->onCustomRedraw('submit');
+				} elseif ($edit['cancel']->isSubmittedBy() && !empty($this->inlineEdit->onCustomRedraw)) {
+					$this->inlineEdit->onCustomRedraw('cancel');
 				} else {
 					$this->redrawItem($id, $primary_where_column);
 					$this->redrawControl('summary');
